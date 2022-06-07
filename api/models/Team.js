@@ -10,7 +10,7 @@ const Schema= mongoose.Schema
 // 	CreatedAt
 
 const teamSchema=new mongoose.Schema({
-    name:{
+    teamName:{
         type:String,
         required:true
     },

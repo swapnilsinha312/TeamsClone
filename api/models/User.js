@@ -27,9 +27,13 @@ const userSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Submission'
     }],
-    activityLog:[{
-        type:Date
-    }]
+    userTeams:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Team'
+    }],
+    // activityLog:[{
+    //     type:Date
+    // }]
 },{timestamps:true}
 );
 
