@@ -1,22 +1,28 @@
 const { json } = require('express');
+const Assignment = require('../models/Assignment');
 const Submission = require('../models/Submission');
 const router= require('express').Router();
 
 
 // ************************************
 // Create new Submission
+// NOTE: assignmentId and userId in both body and param
 
-router.post("/addSubmission",async(req,res)=>{
+router.post("/:userId/add/:assignmentId",async(req,res)=>{
     try {
 
-        if(!(req.body.teamsId && req.body.userId)){
-            return json.status(400).send("Need both teams and user Id");
+        if(req.body.userId!==req.params.userId){
+            return res.status(403).json("Unauthorised Action");
         }
 
-        // const team=teamCon
+        const assignment=await Assignment.findById(req.params.assignmentId);
+        if(!assignment){
+            return res.status(401).json("No such assignment");
+        }
 
         const newSubmission=new Submission({
             submittedBy:req.body.userId,
+            assignment:req.body.assignmentId,
             link:req.body.link
         });
 
@@ -25,13 +31,6 @@ router.post("/addSubmission",async(req,res)=>{
         }
 
         const savedSubmission=await newSubmission.save();
-
-        const updatedUser = await axios({
-            method: "post",
-            url: `/${req.body.userId}/addSubmission/${savedSubmission._id}`
-          });
-
-        //   res.status(200).json(updatedUser);
         res.status(200).json(savedSubmission);
 
     } 
@@ -47,22 +46,25 @@ router.post("/addSubmission",async(req,res)=>{
 
 // ************************
 // Delete Submission
+// NOTE: userId and submissionId in param abd body
 
-router.delete("/deleteSubmission",async(req,res)=>{
+router.delete("/:userId/delete/:submissionId",async(req,res)=>{
     try 
     {
-        const submission=await Submission.findById(req.body.submissionId);
-        if(req.body.userId==submission.submittedBy)
-        {
-            // Delete submission
-            // Delete submission Id from teams
-            // Delete submission Id from User
+        if(req.params.userId!==req.body.userId){
+            return res.status(403).json("Unauthorised operation");
         }
-    }
 
-    catch (error) 
-    {
-        
+        const submission=await Submission.findById(req.body.submissionId);
+        if(req.params.userId!==submission.submittedBy){
+            return res.status(403).json("Unauthorised operation");
+        }
+
+        Submission.findByIdAndDelete(submission._id);
+        res.status(200).json("Deleted");
+    }
+    catch (error){
+        res.status(500).json(error);   
     }
 });
 

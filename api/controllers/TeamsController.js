@@ -1,15 +1,15 @@
-import Team from "../models/Team";
-
+const Team = require("../models/Team");
 
 // ******************
 // Create new Team
 // NOTE: Send userId in both param and in body
-export const createTeam=async(req,res)=>{
+const createTeam=async(req,res)=>{
     try
     {
-        // 	Name
-        // 	Description
-        // 	MadeBy (Role:Admin) (Maybe)
+        if(req.params.userId!==req.body.userId){
+            return res.status(403).json("Unauthorised Action");
+        }
+
         const newTeam=new Team({
             teamName:req.body.teamName,
             description:req.body.description,
@@ -19,7 +19,7 @@ export const createTeam=async(req,res)=>{
         const registeredTeam=await newTeam.save();
         res.status(200).json(registeredTeam);
     }
-    catch
+    catch(error)
     {
         console.log(error);
         res.status(500).json(error);
@@ -31,9 +31,15 @@ export const createTeam=async(req,res)=>{
 
 // *******************
 // Get all Teams
-export const getTeams=async(req,res)=>{
+// NOTE: userID param and body
+
+const getTeams=async(req,res)=>{
     try
     {
+        if(req.params.userId!==req.body.userId){
+            return res.status(403).json("Unauthorised Action");
+        }
+
         const teams= await Team.find({});
         res.status(200).json(teams);
     }
@@ -49,10 +55,15 @@ export const getTeams=async(req,res)=>{
 
 // *******************
 // Get one Teams
-// NOTE: teamId needed in req param
-export const getTeam=async(req,res)=>{
+// NOTE: teamId needed in req param and user ID in body and param
+
+const getTeam=async(req,res)=>{
     try
     {
+        if(req.params.userId!==req.body.userId){
+            return res.status(403).json("Unauthorised Action");
+        }
+
         const team= await Team.findById(req.params.teamId);
         res.status(200).json(team);
     }
@@ -64,7 +75,11 @@ export const getTeam=async(req,res)=>{
 }
 // *******************
 
-
+module.exports={
+    getTeam,
+    getTeams,
+    createTeam
+}
 
 
 
@@ -79,7 +94,7 @@ export const getTeam=async(req,res)=>{
 // **************
 // Add Assignment local function 
 // NOTE: Non API call function 
-export const addAssignmentToTeam=async(teamId,assignmentId)=>{
+const addAssignmentToTeam=async(teamId,assignmentId)=>{
 
     try {
      
@@ -101,3 +116,22 @@ export const addAssignmentToTeam=async(teamId,assignmentId)=>{
  }
  // *********************
  
+ const deleteTeam=async(req,res)=>{
+    try 
+    {
+        if(req.params.userId!==req.body.userId){
+            return res.status(403).json("Unauthorised operation");
+        }
+
+        const submission=await Submission.findById(req.body.submissionId);
+        if(req.params.userId!==submission.submittedBy){
+            return res.status(403).json("Unauthorised operation");
+        }
+
+        Submission.findByIdAndDelete(submission._id);
+        res.status(200).json("Deleted");
+    }
+    catch (error){
+        res.status(500).json(error);   
+    }
+}

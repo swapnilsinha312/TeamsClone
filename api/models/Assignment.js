@@ -21,6 +21,15 @@ const assignmentSchema=new mongoose.Schema({
         type:Boolean,
         default:true
     },
+    assignmentName:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    problemStatement:{
+        type:String,
+        required:true
+    }
     // NOTE: Storing list of submissions here is of no use, will only cause redundancy issues
     
     // submissions:[

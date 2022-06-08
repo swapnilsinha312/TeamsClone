@@ -1,10 +1,10 @@
-import Assignment from "../models/Assignment";
-import Submission from "../models/Submission";
-
+const Assignment = require("../models/Assignment");
+const Submission = require("../models/Submission");
 
 // *******************
 // Get all Assignments of a team
-export const getAssignments=async(req,res)=>{
+// NOTE: Team Id in param
+const getAssignments=async(req,res)=>{
     try
     {
         const assignments= await Assignment.find({team:req.params.teamId});
@@ -21,9 +21,9 @@ export const getAssignments=async(req,res)=>{
 
 
 // *******************
-// Get one Teams
-// NOTE: teamId needed in req param
-export const getAssignment=async(req,res)=>{
+// Get one assignment
+// NOTE: assignmentId needed in req param
+const getAssignment=async(req,res)=>{
     try
     {
         const assignment= await Assignment.findById(req.params.assignmentId);
@@ -41,8 +41,8 @@ export const getAssignment=async(req,res)=>{
 
 // ******************
 // Create Assignment
-// NOTE: Need userId in both param and body and team Id
-export const createAssignment=async(req,res)=>{
+// NOTE: Need userId in both param and body and team Id in param,
+const createAssignment=async(req,res)=>{
     try {
 
         if(req.params.userId!==req.body.userId) {
@@ -51,7 +51,9 @@ export const createAssignment=async(req,res)=>{
 
         const newAssignment=new Assignment({
             assignedBy:req.body.userId,
-            team:req.body.teamId
+            team:req.body.teamId,
+            assignmentName:req.body.assignmentName,
+            problemStatement:req.body.problemStatement
             // deadline:req.body.deadline
         });
 
@@ -77,22 +79,26 @@ export const createAssignment=async(req,res)=>{
 // ******************
 // Stop Accepting assignment
 // TODO: The idea is to set the isAccepting flag as false or to delete assignment. One of the two choices
-// NOTE: Need userId in both param and body and team Id
-export const stopAcceptingSubmissions=async(req,res)=>{
+// NOTE: Need userId in both param and body and assignmentId Id in param
+const stopAcceptingSubmissions=async(req,res)=>{
     try {
 
         if(req.params.userId!==req.body.userId) {
             return res.status(403).json("Unauthorised action");
         }
         
-        const assignment=await Assignment.findById(req.param.assignmentId);
-        if(assignment.assignedBy!==req.params.userId){
+        const assignment=await Assignment.findById(req.params.assignmentId);
+        if(!assignment) {
+            throw new Error("No Assignment");
+        }
+
+        if(assignment.assignedBy!=req.params.userId){
             return res.status(403).json("Unauthorised action");
         }
         
-        Assignment.findOneAndUpdate(
+        await Assignment.findOneAndUpdate(
                 {_id:req.params.assignmentId}, 
-                { isAccepting:false}
+                { isAcceptingSubmissions:false}
                 );
 
         res.status(200).json("Stopped accepting");
@@ -113,20 +119,22 @@ export const stopAcceptingSubmissions=async(req,res)=>{
 // Will only allow the creater of the assignment to delete it
 
 // NOTE: needs userId in body and param and assignmentId in param
-export const deleteAssignment=async(req,res)=>{
+const deleteAssignment=async(req,res)=>{
     try 
     {
         if(req.params.userId!==req.body.userId){
             return res.status(403).json("Unauthorised acess");
         }
 
-        const assignment= Assignment.findById(req.params.assignmentId);
-        if(req.params.userId!==assignment.createdBy){
+        const assignment= await Assignment.findById(req.params.assignmentId);
+        if(req.params.userId!=assignment.assignedBy){
+            // console.log(req.params.userId+" "+assignment.assignedBy);
+            // console.log(req.params.userId+" "+assignment._doc.assignedBy);
             return res.status(403).json("Unauthorised access");
         }
         
-        Submission.deleteMany({assignment:assignment._id});
-        Assignment.findByIdAndDelete(assignment._id);
+        await Submission.deleteMany({assignment:assignment._id});
+        await Assignment.findByIdAndDelete(req.params.assignmentId);
 
         res.status(200).json("Deleted");
     } 
@@ -138,7 +146,14 @@ export const deleteAssignment=async(req,res)=>{
 
 
 
-
+module.exports={
+    deleteAssignment,
+    createAssignment,
+    getAssignment,
+    getAssignments,
+    stopAcceptingSubmissions,
+    
+}
 
 
 
@@ -152,7 +167,7 @@ export const deleteAssignment=async(req,res)=>{
 // No use due to change in database structure
 // ******************
 //  Non API function
-export const removeSubmissionFromAssignment=async(assignmentId,submissionId)=>{
+const removeSubmissionFromAssignment=async(assignmentId,submissionId)=>{
     try {
         
         Assignment.findByIdAndUpdate(
@@ -173,7 +188,7 @@ export const removeSubmissionFromAssignment=async(assignmentId,submissionId)=>{
 
 // ******************
 // Non api function 
-export const addSubmissionToAssignment=async(assignmentId,submissionId)=>{
+const addSubmissionToAssignment=async(assignmentId,submissionId)=>{
     try 
     {
         Assignment.findOneAndUpdate(

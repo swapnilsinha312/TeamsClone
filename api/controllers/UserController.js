@@ -1,10 +1,10 @@
-import Submission from '../models/Submission';
-import User from '../models/User';
+const Submission = require('../models/Submission');
+const User = require('../models/User');
 const bcrypt= require('bcrypt');
 
 // ******************
 // Create user
-export const createUser=async(req,res)=>{
+const createUser=async(req,res)=>{
     try {
 
         console.log("signup");
@@ -32,7 +32,7 @@ export const createUser=async(req,res)=>{
 
 // ******************
 // Login User
-export const userLogin=async(req,res)=>{
+const userLogin=async(req,res)=>{
     try {
 
         console.log("login");
@@ -56,7 +56,7 @@ export const userLogin=async(req,res)=>{
 
 // ******************
 // Delete User
-export const deleteUser = async(req,res)=>{
+const deleteUser = async(req,res)=>{
 
     if(req.body.userId===req.params.id){
         
@@ -84,7 +84,7 @@ export const deleteUser = async(req,res)=>{
 
 // ******************
 // Get user
-export const getUser=async(req,res)=>{
+const getUser=async(req,res)=>{
     try {
         const user= await User.findById(req.params.id);
         const {password,...others}=user._doc;
@@ -98,10 +98,11 @@ export const getUser=async(req,res)=>{
 
 
 
+
 // **************
 // Put user 
 // NOTE: userId in both param and body
-export const putUser=async(req,res)=>{
+const putUser=async(req,res)=>{
 
     if(req.body.userId===req.params.userId){
         if(req.body.password){
@@ -125,10 +126,20 @@ export const putUser=async(req,res)=>{
 }
 // *********************
 
+module.exports={
+    createUser,
+    getUser,
+    userLogin,
+    deleteUser,
+    putUser
+}
+
+
+
 
 // *********************
 // Add submission to user
-export const addSubmission=async (req,res)=>{
+const addSubmission=async (req,res)=>{
     try{
         const submission=await Submission.findById(req.params.submissionId);
         if(submission.submittedBy==req.params.userId)
