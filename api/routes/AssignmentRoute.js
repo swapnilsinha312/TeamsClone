@@ -18,6 +18,6 @@ router.post("/add/:userId",assignmentController.createAssignment);
 router.delete("/delete/:userId/:assignmentId",assignmentController.deleteAssignment);
 
 // NOTE: Need userId in both param and body and assignmentId Id in param
-router.put("/stopAcceptingSubmissions/:userId/:assignmentId",assignmentController.stopAcceptingSubmissions);
+router.put("/toggleAcceptingSubmissions/:userId/:assignmentId",assignmentController.toggleAcceptingSubmissions);
 
 module.exports=router;

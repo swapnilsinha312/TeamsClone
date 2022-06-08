@@ -80,7 +80,7 @@ const createAssignment=async(req,res)=>{
 // Stop Accepting assignment
 // TODO: The idea is to set the isAccepting flag as false or to delete assignment. One of the two choices
 // NOTE: Need userId in both param and body and assignmentId Id in param
-const stopAcceptingSubmissions=async(req,res)=>{
+const toggleAcceptingSubmissions=async(req,res)=>{
     try {
 
         if(req.params.userId!==req.body.userId) {
@@ -95,13 +95,11 @@ const stopAcceptingSubmissions=async(req,res)=>{
         if(assignment.assignedBy!=req.params.userId){
             return res.status(403).json("Unauthorised action");
         }
-        
-        await Assignment.findOneAndUpdate(
-                {_id:req.params.assignmentId}, 
-                { isAcceptingSubmissions:false}
-                );
 
-        res.status(200).json("Stopped accepting");
+        assignment.isAcceptingSubmissions=!assignment.isAcceptingSubmissions;
+        assignment.save();
+
+        res.status(200).json(`Accepting submissions = ${assignment.isAcceptingSubmissions}`);
 
     } 
     catch (error) {
@@ -151,7 +149,7 @@ module.exports={
     createAssignment,
     getAssignment,
     getAssignments,
-    stopAcceptingSubmissions,
+    toggleAcceptingSubmissions
     
 }
 

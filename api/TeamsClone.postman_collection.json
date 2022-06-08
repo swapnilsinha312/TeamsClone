@@ -1,0 +1,519 @@
+{
+	"info": {
+		"_postman_id": "32c22ba9-4350-4ce7-8780-4d8f2b49cfba",
+		"name": "TeamsClone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Team",
+			"item": [
+				{
+					"name": "Create Team",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\",\n    \"teamName\":\"Team2\",\n    \"prevTeam\":\"629f667ee810a9416cd232fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/team/629f667ee810a9416cd232fb/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"team",
+								"629f667ee810a9416cd232fb",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all teams",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/team/629f667ee810a9416cd232fb/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"team",
+								"629f667ee810a9416cd232fb",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all teams Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/team/629f667ee810a9416cd232fb/get/62a0658666076db88d40bb1c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"team",
+								"629f667ee810a9416cd232fb",
+								"get",
+								"62a0658666076db88d40bb1c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"email1@gmail.com\",\n    \"password\":\"password1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"username2\",\n    \"email\":\"email2@gmail.com\",\n    \"password\":\"password2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Assignment",
+			"item": [
+				{
+					"name": "Get assignments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/assignment/62a0658666076db88d40bb1c/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"assignment",
+								"62a0658666076db88d40bb1c",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get assignment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/assignment/get/62a06ddd005ac56c5e6512a0/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"assignment",
+								"get",
+								"62a06ddd005ac56c5e6512a0",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Assignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\",\n    \"teamId\":\"62a0658666076db88d40bb1c\",\n    \"assignmentName\":\"assignment2\",\n    \"problemStatement\":\"problem statement for assignment 2\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/assignment/add/629f667ee810a9416cd232fb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"assignment",
+								"add",
+								"629f667ee810a9416cd232fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Assignment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\",\n    \"assignmentId\":\"62a06ddd005ac56c5e6512a0\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/assignment/delete/629f667ee810a9416cd232fb/62a06ddd005ac56c5e6512a0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"assignment",
+								"delete",
+								"629f667ee810a9416cd232fb",
+								"62a06ddd005ac56c5e6512a0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleAcceptingSubmissions",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\",\n    \"teamId\":\"62a0658666076db88d40bb1c\",\n    \"assignmentName\":\"assignment1\",\n    \"problemStatement\":\"problem statement for assignment 1\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/assignment/toggleAcceptingSubmissions/629f667ee810a9416cd232fb/62a06ddd005ac56c5e6512a0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"assignment",
+								"toggleAcceptingSubmissions",
+								"629f667ee810a9416cd232fb",
+								"62a06ddd005ac56c5e6512a0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Submissions",
+			"item": [
+				{
+					"name": "Get all submissions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submission/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submission",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all submissions of a user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"62a08b19c8180105fabc698a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submission/62a08b19c8180105fabc698a/submissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submission",
+								"62a08b19c8180105fabc698a",
+								"submissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all submissions of a assignment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submission/629f667ee810a9416cd232fb/assignment/62a06ddd005ac56c5e6512a0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submission",
+								"629f667ee810a9416cd232fb",
+								"assignment",
+								"62a06ddd005ac56c5e6512a0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Submission",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"62a08b19c8180105fabc698a\",\n    \"assignmentId\":\"62a087150823723f3c0849a0\",\n    \"link\":\"User 2 Assignment 2 Link 1\",\n    \"comment\":\"User 2 A 2 Comment 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submission/62a08b19c8180105fabc698a/add/62a087150823723f3c0849a0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submission",
+								"62a08b19c8180105fabc698a",
+								"add",
+								"62a087150823723f3c0849a0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Submission",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"629f667ee810a9416cd232fb\",\n    \"submissionId\":\"62a0875d0823723f3c0849a3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submission/629f667ee810a9416cd232fb/delete/62a0875d0823723f3c0849a3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submission",
+								"629f667ee810a9416cd232fb",
+								"delete",
+								"62a0875d0823723f3c0849a3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
