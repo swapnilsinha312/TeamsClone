@@ -22,14 +22,21 @@ const teamSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref: 'User' 
     },
-    members:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'User' 
-    }],
+    
+    // members:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref: 'User' 
+    // }],
+    
+    // Change in structure, all people will be part of all teams
+    // Can't find a workaround at present
+    
+
     assignments:[{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Assignment' 
     }],
+
 },{timestamp:true}
 );
 

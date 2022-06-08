@@ -13,15 +13,26 @@ const assignmentSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref: 'User' 
     },
-    submissions:[
-        { 
+    team:{ 
         type:mongoose.Schema.Types.ObjectId,
-        ref: 'Submission' 
-    }],
-    submissionDeadline:{
-        type:Date,
-        required:true
+        ref: 'Team' 
     },
+    isAcceptingSubmissions:{
+        type:Boolean,
+        default:true
+    },
+    // NOTE: Storing list of submissions here is of no use, will only cause redundancy issues
+    
+    // submissions:[
+    //     { 
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref: 'Submission' 
+    // }],
+
+    // submissionDeadline:{
+    //     type:Date,
+    //     required:true
+    // },
 },{timestamps:true}
 );
 

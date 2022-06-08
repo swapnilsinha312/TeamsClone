@@ -1,5 +1,9 @@
-// *******************
+import Team from "../models/Team";
+
+
+// ******************
 // Create new Team
+// NOTE: Send userId in both param and in body
 export const createTeam=async(req,res)=>{
     try
     {
@@ -25,26 +29,75 @@ export const createTeam=async(req,res)=>{
 
 
 
-// ******************
-// Login User
-export const userLogin=async(req,res)=>{
-    try {
-
-        console.log("login");
-
-        const user=await User.findOne({email:req.body.email});
-        !user && res.send(400).json("Invalid Credentials");
-
-        const isValid=await bcrypt.compare(req.body.password,user.password);
-        !isValid && res.send(400).json("Invalid Credentials");
-
-        const { password, ...others }= user._doc;
-        res.status(200).json(others);
-    } 
-
-    catch (error) {
+// *******************
+// Get all Teams
+export const getTeams=async(req,res)=>{
+    try
+    {
+        const teams= await Team.find({});
+        res.status(200).json(teams);
+    }
+    catch
+    {
         console.log(error);
         res.status(500).json(error);
     }
 }
-// ******************
+// *******************
+
+
+
+// *******************
+// Get one Teams
+// NOTE: teamId needed in req param
+export const getTeam=async(req,res)=>{
+    try
+    {
+        const team= await Team.findById(req.params.teamId);
+        res.status(200).json(team);
+    }
+    catch
+    {
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+// *******************
+
+
+
+
+
+
+
+
+
+
+// *********************************************************************************
+// NOTE: Of no use; Change in db structure
+
+// **************
+// Add Assignment local function 
+// NOTE: Non API call function 
+export const addAssignmentToTeam=async(teamId,assignmentId)=>{
+
+    try {
+     
+     Team.findOneAndUpdate(
+         { _id: teamId },
+         { $push: { assignments: assignmentId } },
+         { upsert: true },
+     );
+ 
+    return true;
+    //  return res.status(200).json("Assignment Added");
+    } 
+ 
+    catch (error) {
+        // return res.status(500).json(error);
+        return false;
+    }
+ 
+ }
+ // *********************
+ 

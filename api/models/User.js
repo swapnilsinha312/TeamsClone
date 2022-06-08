@@ -23,14 +23,19 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    userSubmissions:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Submission'
-    }],
-    userTeams:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Team'
-    }],
+
+    // userSubmissions:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:'Submission'
+    // }],
+    // userTeams:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:'Team'
+    // }],
+
+    // Made the above two changes as all members will be in all teams for now
+     
+
     // activityLog:[{
     //     type:Date
     // }]

@@ -1,5 +1,4 @@
 const mongoose= require('mongoose');
-const Schema= mongoose.Schema
 
     // ID
 	// Submitted By
@@ -13,11 +12,18 @@ const submissionSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId, 
         ref: 'User' 
     },
+
+    assignment:{ 
+        type:mongoose.Schema.Types.ObjectId, 
+        ref: 'Assignment' 
+    },
+
     link:{
         type:String,
         required:true,
         unique:true
     },
+    
     // isSubmitted:{
     //     type:Boolean,
     //     required:false
